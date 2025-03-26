@@ -94,7 +94,31 @@ plotSV(Lset, 0, 2, 1, alpha, dat.RegionNames);
 ylabel ('Raw Shapley values');
 title ('Leave-one-out');
 
+%%
+interacting_sets = {};
+interacting_values = {};
 
+for p = 1:5
+    coalitions = coal.Coal{p};      % 组合列表
+    values = coal.Vest{p};          % 对应的行为预测值
+    idx = find(any(coalitions == 5, 2));   % 找到含有 F3（编号5）的组合
+    interacting_sets{p} = coalitions(idx, :);
+    interacting_values{p} = values(idx);
+end
+
+for p =1:5
+    fprintf('p = %d: 含 F3 的组合平均行为预测 = %.3f\n', ...
+        p, mean(interacting_values{p}));
+end
+
+
+
+
+
+
+
+
+%%
 function plotSV (Bset, calib, fdr_flag, large_only_flag, alpha, RegionNames)
 
 [SV, SVci0, SVci, pval, Z, aver] = StatInference(Bset,calib);
