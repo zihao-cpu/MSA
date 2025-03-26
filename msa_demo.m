@@ -42,7 +42,7 @@ TOP = 66;
 %the result will represent the score that patient achieved above the
 %minimum)
 
-optimize = 'gpu';
+optimize = 'cpu';
 %The code is planned to use GPU whenever possible, and if no GPU is detected it
 %uses parralel CPU cores. Only if these two are not possible classical
 %non-paralelized code is invoked. Use 'par' to enforce use of parallel CPU
@@ -55,7 +55,7 @@ optimize = 'gpu';
 
 
 %Demo #2: Compute Shapley value with Bootstrap
-[SV, Calib, ~, Bset]=PerformMSA (RHD_xy, pdepth, nBS, alpha, TOP, optimize);
+[SV, Calib, coal, Bset,~]=PerformMSA (RHD_xy, pdepth, nBS, alpha, TOP, optimize);
 
 %There is some redundency, as Bset was added in subsequent stage. To get
 %the Shapley-vector information use can use SV (for raw SV) or Calib.SV
